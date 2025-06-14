@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Shipping Risk Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h2>Shipping Risk - Actual vs Predicted</h2>
+    {% if error %}
+        <p style="color:red">{{ error }}</p>
+    {% else %}
+        <canvas id="riskChart" width="800" height="400"></canvas>
+        <script>
+            const labels = {{ labels_json|safe }};
+            const actualData = {{ actual_json|safe }};
+            const predictedData = {{ predicted_json|safe }};
+
+            const ctx = document.getElementById('riskChart').getContext('2d');
+            const chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Actual',
+                            data: actualData,
+                            borderColor: 'blue',
+                            fill: false
+                        },
+                        {
+                            label: 'Predicted',
+                            data: predictedData,
+                            borderColor: 'red',
+                            borderDash: [5, 5],
+                            fill: false
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true,
+                                text: 'Date'
+                            }
+                        },
+                        y: {
+                            display: true,
+                            title: {
+                                display: true,
+                                text: 'Shipping Risk'
+                            }
+                        }
+                    }
+                }
+            });
+        </script>
+    {% endif %}
+</body>
+</html>

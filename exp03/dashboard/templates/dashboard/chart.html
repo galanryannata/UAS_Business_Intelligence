@@ -1,0 +1,43 @@
+<canvas id="packagingChart" width="800" height="400"></canvas>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const result = JSON.parse('{{ result_json|safe }}');
+    const ctx = document.getElementById('packagingChart').getContext('2d');
+    const datasets = [];
+
+    Object.keys(result).forEach((packaging, i) => {
+        datasets.push({
+            label: packaging + ' (Aktual)',
+            data: result[packaging].actual,
+            borderColor: `hsl(${i * 40}, 70%, 50%)`,
+            fill: false
+        });
+        datasets.push({
+            label: packaging + ' (Prediksi)',
+            data: result[packaging].predicted,
+            borderColor: `hsl(${i * 40}, 70%, 80%)`,
+            borderDash: [5, 5],
+            fill: false
+        });
+    });
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: result[Object.keys(result)[0]].labels,
+            datasets: datasets
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: { display: true, text: 'Jumlah Penggunaan' }
+                },
+                x: {
+                    title: { display: true, text: 'Bulan' }
+                }
+            }
+        }
+    });
+</script>

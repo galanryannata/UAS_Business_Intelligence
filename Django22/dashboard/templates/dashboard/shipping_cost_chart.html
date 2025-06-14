@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Shipping Cost Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h2 style="text-align:center;">Shipping Cost Over Time</h2>
+    <canvas id="shippingChart" width="800" height="400"></canvas>
+
+    <script>
+        const labels = {{ labels_json|safe }};
+        const actualData = {{ values_json|safe }};
+        const predictedData = {{ predictions_json|safe }};
+
+        const ctx = document.getElementById('shippingChart').getContext('2d');
+        const shippingChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'Actual Shipping Cost',
+                        data: actualData,
+                        borderColor: 'blue',
+                        borderWidth: 2,
+                        pointRadius: 4,
+                        fill: false,
+                        tension: 0.3
+                    },
+                    {
+                        label: 'Predicted Shipping Cost',
+                        data: predictedData,
+                        borderColor: 'orange',
+                        borderDash: [5, 5],
+                        borderWidth: 2,
+                        pointRadius: 4,
+                        fill: false,
+                        tension: 0.3
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top'
+                    },
+                    title: {
+                        display: true,
+                        text: 'Shipping Cost Over Time'
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: false
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
