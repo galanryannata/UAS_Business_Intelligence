@@ -1,6 +1,6 @@
 Kelompok 2
 Nama Anggota Kelompok:
 1. Aurelia Tifana Agustin 		23051214036
-2. Ilham Maulana Bragha 		23051214053
+2. Ilham Maulana Bragha 		  23051214053
 3. M. Fauzan Al-Faaqih    		23051214056
-4. Galan Ryannata Rizqullah        	23051214326
+4. Galan Ryannata Rizqullah   23051214326
